@@ -2,15 +2,15 @@
 
 StockTwits MCP (keyless public read).
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 673+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 965+ live data sources.
 
 ## Tools
 
 | Tool | Description |
 |------|-------------|
-| `symbol_stream` | Messages mentioning a ticker. |
-| `user_stream` | Messages from a user. |
-| `watchlist` | Messages from a watchlist. |
+| `symbol_stream` | "What are people saying about [ticker]" / "StockTwits sentiment for [TICKER]" / "retail / WSB / Twitter chatter on [stock]" / "Stocktwits feed for [symbol]" — recent messages mentioning a ticker on StockTwits (the largest finance-focused social-media platform). Returns user posts with bullish/bearish sentiment tags, timestamps, like counts. Use for retail-investor sentiment, social-volume tracking, contrarian signal. |
+| `user_stream` | Recent StockTwits posts from a specific user (by user_id string). Supports since/max cursor pagination and a limit cap. Returns messages with sentiment tags, timestamps, and ticker cashtags. Use to follow a particular trader\'s commentary stream. |
+| `watchlist` | Recent StockTwits messages for all tickers in a specific watchlist (by watchlist_id). Supports since/max cursor pagination and a limit cap. Use to track social chatter across a curated list of symbols in one call. |
 
 ## Quick Start
 
@@ -26,7 +26,7 @@ Add to your MCP client (Claude Desktop, Cursor, Windsurf, etc.):
 }
 ```
 
-Or connect to the full Pipeworx gateway for access to all 673+ data sources:
+Or connect to the full Pipeworx gateway for access to all 965+ data sources:
 
 ```json
 {
