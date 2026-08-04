@@ -1,16 +1,28 @@
-# mcp-stocktwits
+# @pipeworx/stocktwits
 
-StockTwits MCP (keyless public read).
+[StockTwits](https://api.stocktwits.com/developers/docs) MCP — stock-focused social sentiment. Keyless read endpoints, 200 req/hr per IP.
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 965+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1394+ live data sources.
 
 ## Tools
 
-| Tool | Description |
-|------|-------------|
-| `symbol_stream` | "What are people saying about [ticker]" / "StockTwits sentiment for [TICKER]" / "retail / WSB / Twitter chatter on [stock]" / "Stocktwits feed for [symbol]" — recent messages mentioning a ticker on StockTwits (the largest finance-focused social-media platform). Returns user posts with bullish/bearish sentiment tags, timestamps, like counts. Use for retail-investor sentiment, social-volume tracking, contrarian signal. |
-| `user_stream` | Recent StockTwits posts from a specific user (by user_id string). Supports since/max cursor pagination and a limit cap. Returns messages with sentiment tags, timestamps, and ticker cashtags. Use to follow a particular trader\'s commentary stream. |
-| `watchlist` | Recent StockTwits messages for all tickers in a specific watchlist (by watchlist_id). Supports since/max cursor pagination and a limit cap. Use to track social chatter across a curated list of symbols in one call. |
+- `symbol_stream(symbol, since?, max?, limit?, filter?)` — messages mentioning a ticker
+- `user_stream(user_id, since?, max?, limit?)` — messages from a user
+- `trending_symbols(limit?)` — top trending tickers
+- `trending_messages(limit?)` — trending messages
+- `suggested_symbols(limit?)` — editorial suggested
+- `symbol_search(q, limit?)` — symbol search
+- `chart_data(symbol, period?)` — sparkline data for a ticker
+- `watchlists(user_id)` — user's watchlists
+- `watchlist(watchlist_id, since?, max?, limit?)` — messages from a watchlist
+
+## Notes
+
+StockTwits public read endpoints are keyless but rate-limited (200/hr/IP). The gateway egress IP is shared so heavy use may be throttled; the upstream returns 429 in that case and this pack surfaces it cleanly.
+
+## Data source
+
+`https://api.stocktwits.com/api/2`
 
 ## Quick Start
 
@@ -26,7 +38,7 @@ Add to your MCP client (Claude Desktop, Cursor, Windsurf, etc.):
 }
 ```
 
-Or connect to the full Pipeworx gateway for access to all 965+ data sources:
+Or connect to the full Pipeworx gateway for access to all 1394+ data sources:
 
 ```json
 {
@@ -50,7 +62,7 @@ The gateway picks the right tool and fills the arguments automatically.
 
 ## More
 
-- [All tools and guides](https://github.com/pipeworx-io/examples)
+- [Docs and guides](https://pipeworx.io/docs)
 - [pipeworx.io](https://pipeworx.io)
 
 ## License
