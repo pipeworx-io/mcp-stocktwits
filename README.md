@@ -2,7 +2,7 @@
 
 [StockTwits](https://api.stocktwits.com/developers/docs) MCP — stock-focused social sentiment. Keyless read endpoints, 200 req/hr per IP.
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1476+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1679+ live data sources.
 
 ## Tools
 
@@ -12,7 +12,7 @@ Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents 
 - `trending_messages(limit?)` — trending messages
 - `suggested_symbols(limit?)` — editorial suggested
 - `symbol_search(q, limit?)` — symbol search
-- `chart_data(symbol, period?)` — sparkline data for a ticker
+- `chart_data(symbol, period?)` — OHLCV price bars for a ticker; `period` is 1D (default, 5-minute bars), 1W, 1M, 3M, 6M, YTD, 1Y, 5Y or ALL
 - `watchlists(user_id)` — user's watchlists
 - `watchlist(watchlist_id, since?, max?, limit?)` — messages from a watchlist
 
@@ -22,7 +22,7 @@ StockTwits public read endpoints are keyless but rate-limited (200/hr/IP). The g
 
 ## Data source
 
-`https://api.stocktwits.com/api/2`
+`https://api.stocktwits.com/api/2` for streams, trending, search and watchlists; `https://ql.stocktwits.com/chart` (the chart feed behind stocktwits.com) for `chart_data`.
 
 ## Quick Start
 
@@ -68,9 +68,45 @@ directly, instead of just this one's:
 }
 ```
 
-Both URLs reach the same gateway and the same 1476+ data sources. The
+Both URLs reach the same gateway and the same 1679+ data sources. The
 only difference is which pack's tools are listed **directly**; `ask_pipeworx`
 reaches all of them from either one.
+
+## No MCP client? Call it over HTTP
+
+```bash
+curl -X POST https://gateway.pipeworx.io/v1/tools/symbol_stream \
+  -H 'Content-Type: application/json' \
+  -d '{"symbol":"TSLA"}'
+```
+
+No account needed for the first calls. Inspect any tool: `GET https://gateway.pipeworx.io/v1/tools/symbol_stream`. Find one: `POST https://gateway.pipeworx.io/v1/tools/search_packs` with `{"query":"..."}`.
+
+## Standalone (no gateway account)
+
+This package also runs as a local stdio MCP server — no Pipeworx account, no
+gateway round-trip:
+
+```json
+{
+  "mcpServers": {
+    "stocktwits": {
+      "command": "npx",
+      "args": ["-y", "@pipeworx/mcp-stocktwits"]
+    }
+  }
+}
+```
+
+Or run it directly to confirm it starts:
+
+```bash
+npx -y @pipeworx/mcp-stocktwits
+```
+
+It speaks MCP over stdin/stdout and answers `initialize`/`tools/list`/`tools/call`
+for **only** this pack's tools — none of the shared meta-tools the gateway
+connection above adds. Same source, same tools, no ask_pipeworx routing.
 
 ## Using with ask_pipeworx
 
@@ -91,13 +127,3 @@ The gateway picks the right tool and fills the arguments automatically.
 ## License
 
 MIT
-
-## No MCP client? Call it over HTTP
-
-```bash
-curl -X POST https://gateway.pipeworx.io/v1/tools/symbol_stream \
-  -H 'Content-Type: application/json' \
-  -d '{"symbol":"TSLA"}'
-```
-
-No account needed for the first calls. Inspect any tool: `GET https://gateway.pipeworx.io/v1/tools/symbol_stream`. Find one: `POST https://gateway.pipeworx.io/v1/tools/search_packs` with `{"query":"..."}`.
