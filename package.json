@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-stocktwits",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "StockTwits MCP (keyless public read).",
   "type": "module",
   "main": "src/index.ts",
@@ -26,7 +26,7 @@
     "@cloudflare/workers-types": "^4.20260405.1"
   },
   "pipeworx": {
-    "sourceHash": "v1-aa0aa4df785dc43b3131e23a891356e0008a1665d02584d2080a94cd94eac5a4",
-    "sourceCommit": "00c836ddeaecbdd581dcfb0fb1842efea104006e"
+    "sourceHash": "v1-1251a5d5a68906f0536119ab8f92a078df07b8cef3975a181e0eff474318ff36",
+    "sourceCommit": "d4a9636716f113458bd312e487c065f76548df8c"
   }
 }
