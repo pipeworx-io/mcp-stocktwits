@@ -821,6 +821,20 @@ async function callTool(name: string, args: Record<string, unknown>): Promise<un
     // shot external callers in 30d) and reverted it because chart_data was
     // broken at the time. fleet #2327 repointed chart_data at the working
     // chart feed, so the hint is no longer blocked on that defect.
+    //
+    // 14d re-measure (fleet #2325, 2026-10-07): the hint is STILL NOT
+    // shipped (no `next` key below) — #2327 removed the blocker but nobody
+    // re-added the hint, so this is a CONTROL, not a test. Single-tool-only
+    // callers of symbol_stream dropped sharply anyway: 29 -> 6 (total
+    // callers 98 -> 76), share 29.6% -> 7.9%, DOWN 21.7pt — a bigger drop
+    // than any of the 6 tools that actually shipped a hint. NOT attributable
+    // to the next-hints mechanism (there is none here); cause unknown (maybe
+    // #2327's chart_data fix changed behavior some other way, maybe
+    // unrelated StockTwits/traffic drift). This is the load-bearing caveat
+    // for the whole 14d re-measure: if an unhinted control can swing by
+    // -21.7pt, the per-tool noise floor is wide enough that the shipped
+    // hints' drops (8.7-14.7pt) cannot yet be told apart from background
+    // churn. Full comparison in the fleet #2325 close.
     case 'symbol_stream':
       return get(`/streams/symbol/${encodeURIComponent(symArg('"AAPL"'))}.json`, { since: args.since, max: args.max, limit: args.limit, filter: args.filter });
     case 'user_stream':
