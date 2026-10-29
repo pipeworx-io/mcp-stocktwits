@@ -1,12 +1,20 @@
 {
   "name": "@pipeworx/mcp-stocktwits",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "StockTwits MCP (keyless public read).",
   "type": "module",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./tools.json": "./tools.json",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "mcp-stocktwits": "bin/cli.js"
+  },
+  "files": ["bin/", "lib/", "tools.json", "server.json"],
+  "engines": {
+    "node": ">=18"
   },
   "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "stocktwits"],
   "license": "MIT",
@@ -14,19 +22,12 @@
     "type": "git",
     "url": "git+https://github.com/pipeworx-io/mcp-stocktwits.git"
   },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
-    "tsx": "^4.19.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.3",
-    "@cloudflare/workers-types": "^4.20260405.1"
-  },
+  "mcpName": "io.github.pipeworx-io/stocktwits",
   "pipeworx": {
-    "sourceHash": "v1-31f6727a367433f71273aaa487789bdb8f629c5a9b0e73aa8a5a4d4045a5397e",
-    "sourceCommit": "be47827ad0f444e813e7224db0489c4ea890a30e"
+    "mode": "gateway",
+    "slug": "stocktwits",
+    "gatewaySlug": "stocktwits",
+    "sourceHash": "v1-9c63191c61c26796f0efdce87cc4d149099b069fb8c80c38f6600f9ec96e5f82",
+    "sourceCommit": "f47d581679e1e887373df51ba623f891fbe4c464"
   }
 }
