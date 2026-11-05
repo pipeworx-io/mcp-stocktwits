@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-stocktwits",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "StockTwits MCP (keyless public read).",
   "type": "module",
   "main": "lib/index.js",
@@ -27,7 +27,7 @@
     "mode": "gateway",
     "slug": "stocktwits",
     "gatewaySlug": "stocktwits",
-    "sourceHash": "v1-9c63191c61c26796f0efdce87cc4d149099b069fb8c80c38f6600f9ec96e5f82",
-    "sourceCommit": "f47d581679e1e887373df51ba623f891fbe4c464"
+    "sourceHash": "v1-ad15b459edabc3b0f7e131873f24145abfd572e11dd1288ff70e94b0bf8af2fb",
+    "sourceCommit": "868e119d526d5409447b7ee2149afba7eb9d2593"
   }
 }
